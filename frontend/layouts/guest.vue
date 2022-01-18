@@ -1,7 +1,10 @@
 <template>
   <div>
+    <section class="ftco-section">
+        <Nuxt></Nuxt>
 
-    <Nuxt></Nuxt>
+    </section>
+
 
   </div>
 </template>

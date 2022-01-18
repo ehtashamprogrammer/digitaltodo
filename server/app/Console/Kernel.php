@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
-          $expired_tasks =  Task::where('due_date','>', \Carbon\Carbon::now())
+          $expired_tasks =  Task::where('due_date','<', \Carbon\Carbon::now())
               ->where('notified', false)
                 ->orderBy('created_at', 'asc')->get();
           $expired_tasks_id = $expired_tasks->pluck('id');

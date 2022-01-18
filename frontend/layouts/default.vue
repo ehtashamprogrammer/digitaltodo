@@ -1,22 +1,33 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-    <div class="col-2 bg-light">
-      <div class="my-5 mx-5">
-          <nuxt-link to="/"><i class="ti-user"></i>Task</nuxt-link>
+  <section class="webtask-section">
+    <div class="container-fluid p-0">
+      <div class="row">
+        <div class="col-md-3 col-lg-3">
+          <div class="tbtn">
+            <a href="#!" class="">
+              <img src="~/assets/images/task.png"> <span class="task">Task</span>
+            </a>
+          </div>
+          <div class="lbtn mt-3">
+            <a href="#!" class="">
+              <img src="~/assets/images/location.png"> <span class="task">Location</span>
+            </a>
+          </div>
+          <div class="logbtn mt-3">
+            <a  @click="logout()" href="#" class="">
+              <img src="~/assets/images/logout.png"> <span class="task">Logout</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="col-md-9 col-lg-9">
+            <Nuxt></Nuxt>
+        </div>
+
       </div>
     </div>
-    <div class="col-10">
-      <div class="my-5">
+  </section>
 
-
-        <Nuxt></Nuxt>
-      </div>
-    </div>
-    </div>
-
-
-  </div>
 </template>
 
 <script>
@@ -37,7 +48,17 @@ export default ({
       this.$axios.get(`${process.env.API_SERVER}/sanctum/csrf-cookie`)
         .then(() => {
         });
-    }
+    },
+    logout(){
+      this.$auth.logout('laravelSanctum')
+        .then((response)=> {
+          this.$toast.success('Successfully Logged Out ').goAway(4000);
+          this.$router.push('/login');
+        })
+        .catch((error)=> {
+          console.log(error);
+        });
+    },
   }
 })
 </script>

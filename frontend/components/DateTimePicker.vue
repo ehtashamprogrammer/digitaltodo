@@ -1,12 +1,7 @@
 <template>
-  <div class="container mt-5">
-    <div class="row text-center">
-      <div>
-        <h2 class="">{{ label }}</h2>
-        <date-picker v-model="form.due_date" :config="options"></date-picker>
-      </div>
-    </div>
-  </div>
+
+        <date-picker v-model="form.due_date" :placeholder="placeholder" :config="options"></date-picker>
+
 </template>
 
 <script>
@@ -24,10 +19,9 @@ export default {
   },
 
   props:{
-    label:{
+    placeholder:{
       required:true
     },
-
     value:{
       required:true,
       type:Object

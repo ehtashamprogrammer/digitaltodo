@@ -32,6 +32,8 @@ Route::name('frontend.')->middleware('web')->prefix('frontend')->group(function 
 
 
     Route::resource('tasks', App\Http\Controllers\Frontend\TaskController::class);
+    Route::get('tasks/completed/{task}', [App\Http\Controllers\Frontend\TaskController::class,'markAsCompleted'])->name('task.completed');
 
+    Route::resource('users', App\Http\Controllers\Frontend\UserController::class);
 
 });

@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Events\TaskExpired;
 use App\Http\Controllers\Controller;
-use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Auth;
 
-class TaskController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,13 +15,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-
-
-        $completed_tasks = $user->tasks()->where('status','Completed')->get();
-        $pending_tasks = $user->tasks()->where('status','Pending')->get();
-
-        return compact('completed_tasks','pending_tasks');
+        $users = User::all();
+        return compact('users');
     }
 
     /**
@@ -44,18 +37,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $task = new Task([
-            'summary' => $request->summary,
-            'description' => $request->description,
-            'due_date' => $request->due_date,
-            'status' => 'Pending',
-        ]);
-
-
-        $user = Auth::user();
-        $user->tasks()->save($task);
-//        broadcast(new TaskExpired($task,$user->id));
-        return  $task;
+        //
     }
 
     /**
@@ -101,14 +83,5 @@ class TaskController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function markAsCompleted(Task $task){
-//        $task_id =$request->get('task_id');
-        $task->status = 'Completed';
-        $task->save();
-
-        return $task;
-
     }
 }
